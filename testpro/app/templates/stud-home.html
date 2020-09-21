@@ -1,0 +1,61 @@
+{%load static%}
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .grid-items {
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .grid-images {
+            width: 170px;
+            height: 170px;
+        }
+    </style>
+</head>
+
+<body>
+    {% csrf_token %}
+    <nav class="navbar navbar-light bg-success justify-content-between">
+        <a class="navbar-brand"><img src="{% static '\images\logo-nttf.png' %}" alt="" style="height: 20px; width: 50px;"></a>
+        <a href="# " class="text-white">Change Password</a>
+        <form class="form-inline " action="logout">
+            <button class="btn btn-outline-success text-white bg-dark my-2 my-sm-0" type="submit">LOG OUT<i class="fa fa-sign-out" aria-hidden="true"></i></button>
+        </form>
+    </nav><br>
+
+    <div class="container bg-success">
+        <div class="row">
+            <div class="col-lg-12 bg-danger grid-items" class="grid-items"><br>
+                <a class="text-white" href="{% url 'profile' %}"><img src="{% static '\images\add-user.jpg' %}" class="grid-images" alt=""> <br>Profile</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 bg-warning grid-items">
+                <br>
+                <a class="text-white" href="{% url 'student-exam' %}"><img src="{% static '\images\Common-test.jpg' %}" class="grid-images" alt=""> <br>Exam</a>
+
+            </div>
+            <div class="col-lg-6 bg-primary grid-items">
+                <br>
+                <a class="text-white" href="{% url 'student-fee' %}"><img src="{% static '\images\commission-fees-featured-image.png' %}" class="grid-images" alt=""> <br>Fees</a>
+
+            </div>
+            <div class="col-lg-12 bg-muted grid-items">
+                <br>
+                <a class="text-white" href=""><img src="{% static '\images\download-ebook.jpg' %}" class="grid-images" alt=""> <br>E-Book</a>
+
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>

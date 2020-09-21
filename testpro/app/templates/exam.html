@@ -1,0 +1,31 @@
+{%extends 'admin.html'%} {%block content%}
+<form>
+    <div class="form-group">
+        <label for="selectdept" name="selectdeptlbl">Select department</label>
+        <select id="selectdept" class="form-control">
+            <option selected value="0">Computer science</option>
+            <option value="1">Mecatronics</option>
+        </select><br>
+    </div>
+    <div class="form-group">
+        <label for="selectbatch" name="selectbatchlbl">Select Batch</label>
+        <select id="selectdept" class="form-control">
+            <option selected value="0">cs19</option>
+            <option value="1">cs18</option>
+            <option value="2">mec19</option>
+            <option value="3">mec18</option>
+        </select><br>
+    </div>
+    <div class="form-group">
+        <label for="selectsub" name="selectsublbl">Select subject</label>
+        <select id="selectsub" class="form-control">
+            <option selected value="0">Maths</option>
+            <option value="1">C++</option>
+            <option value="2">English</option>
+            <option value="3">Robotics</option>
+        </select><br>
+    </div>
+    <button type="submit" class="btn btn-primary">View results</button>
+</form>
+
+{%endblock%}

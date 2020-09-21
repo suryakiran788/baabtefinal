@@ -1,0 +1,60 @@
+{%extends 'admin.html'%} {%block content%}
+<form id="usrregfrm">
+    <div class="row">
+        <div class="form-group col-lg-5">
+            <label for="staffselect">Type of user</label>
+            <select id="staffselect" onchange="" class="form-control">
+                <option selected>Staff</option>
+                <option >Student</option>
+            </select>
+        </div>
+        <div class="form-group col-lg-5">
+            <label for="deptselect">Select Department</label>
+            <select id="deptselect" onchange="" class="form-control">
+                <option selected>All Department</option>
+                <option>Computer science</option>
+                <option>Mechatronics</option>
+            </select>
+        </div>
+        <div class="form-group col-lg-2">
+            <br>
+            <button type="button" class="btn btn-primary" onclick="mngusrbtns()">Submit</button>
+        </div>
+
+    </div>
+
+    <br>
+
+
+    <div class="row">
+        <div class="form-group col-lg-5"></div>
+        <div class="form-group col-lg-5">
+            <input type="text" class="form-control" placeholder="Enter user Id">
+        </div>
+
+        <div class="form-group col-lg-2">
+            <button type="button" class="btn btn-primary" onclick="mngusrbtns()">Search</button>
+        </div>
+
+    </div>
+</form>
+
+
+
+
+<table class="table" style="margin-top: 50px;">
+    <thead>
+        <tr>
+            <th scope="col">Staff id</th>
+            <th scope="col">staff name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+        </tr>
+    </tbody>
+</table>
+
+{%endblock%}

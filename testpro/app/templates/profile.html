@@ -1,0 +1,79 @@
+{%load static%}
+<html>
+
+<head>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <!-- <img src="logo-nttf.png" class="rounded mx-auto d-block" alt="..."> ​ -->
+    <div class="container">
+        <div>
+
+            <img src="{% static '\images\download.png' %}" class="rounded mx-auto d-block">
+            <input type="file" id="imgupload" style="display:none" />
+            <button id="OpenImgUpload" type="button" class="btn btn-primary d-block mx-auto">change profile picture</button>
+
+        </div>
+
+        <br>
+
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <th>Name</th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>Identification Number</th>
+                    <td></td>
+
+                </tr>
+                <tr>
+                    <th>Designation</th>
+                    <td></td>
+
+                </tr>
+                <tr>
+                    <th>Department</th>
+                    <td></td>
+
+                </tr>
+                <tr>
+                    <th>Date Of Birth</th>
+                    <td></td>
+
+                </tr>
+                <tr>
+                    <th>Date Of Join</th>
+                    <td></td>
+
+                </tr>
+                <tr>
+                    <th>Contact Number</th>
+                    <td></td>
+
+                </tr>
+
+                <tr>
+                    <th>Blood Group</th>
+                    <td></td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('#OpenImgUpload').click(function() {
+                $('#imgupload').trigger('click');
+            });
+        });
+    </script>
+</body>
+
+</html>

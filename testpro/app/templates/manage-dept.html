@@ -1,0 +1,22 @@
+{%extends 'admin.html'%} {%block content%} {%csrf_token%}
+<table class="table" style="margin-top: 50px;">
+    <thead>
+        <tr>
+            <th scope="col">Department id</th>
+            <th scope="col">Department name</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for dptdata in deptdata %}
+        <tr>
+            <th scope="row">{{dptdata.dept_id}}</th>
+            <td>{{dptdata.dept_name}}</td>
+            <td><a class="btn btn-primary" id="btn_dlt_usr" href="deletedepartment/{{dptdata.id}}" role="button">Delete Department</a></td>
+            <td><a class="btn btn-primary" id="btn_edt_usr" href="#" role="button">Update Department</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+{%endblock%}

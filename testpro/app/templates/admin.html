@@ -1,0 +1,83 @@
+<html>
+
+<head>
+
+    ​
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+
+
+
+
+    <link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" rel="Stylesheet" type="text/css" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+</head>
+
+<body>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">User</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{% url 'userregistration' %}">Registration</a>
+                    <br>
+                    <a class="dropdown-item" href="{% url 'usermanage' %}">Manage</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Department</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{% url 'departmentregistration' %}">Registration</a>
+                    <br>
+                    <a class="dropdown-item" href="{% url 'departmentmanage' %}">Manage</a>
+                </div>
+            </li>
+
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Batch</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{% url 'batchregisteration' %}">Registration</a>
+                    <br>
+                    <a class="dropdown-item" href="{% url 'batchmanage' %}">Manage</a>
+                </div>
+            </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'adminexam' %}">Exam</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="{% url 'adminfee' %}" tabindex="-1" aria-disabled="true">Fees</a>
+            </li>
+            <div class="pull-right">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <form action="admlogout">
+                            <button type="submit" class="btn btn-danger">LOG OUT</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+
+
+
+    </ul>
+
+    <div class="container">
+        <div class="col-lg-12">
+            <br> {%block content%} {%endblock%}
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,243 @@
+{%extends 'admin.html'%} {%block content%}
+<p style="color: darkorange;">{{status}}</p>
+<form id="usrregfrm" name="userregform" onsubmit="return usrregvalid()" method="POST" action="userregistration">
+    {% csrf_token %}
+    <div class="row">
+        <div class="row">
+            <div class="form-group col-lg-6">
+                <label for="staffselect">Type of user</label>
+                <select id="staffselect" onchange="hideselect()" class="form-control" name="usrtype">
+                <option selected  value="staff">Tutor</option>
+                <option value="hod">HOD</option>
+                <option  value="student">Student</option>
+            </select>
+            </div>
+            <!-- <div class="form-group col-lg-6">
+                <label for="stafftype" id="lbl_stafftype">Type of Staff</label>
+                <select id="stafftype" class="form-control" onchange="hideradio()">
+                    <option selected value="0">Tutor</option>
+                    <option value="1">HOD</option>
+                </select>
+            </div> -->
+            <br>
+
+            <div class="form-group col-lg-6" id="tutorpermission">
+                <input class="form-check-input" type="checkbox" name="sectioncharrge" value="yes" id="sectinchrg">
+                <label class="form-check-label" for="sectinchrg">
+                  Section incharge
+                </label>
+            </div>
+        </div>
+
+        <div class="row">
+            <br>
+            <div class="form-group col-lg-6">
+                <label for="username" name="lbl_name">Name<span>(required)</span></label>
+                <input type="text" name="usrname" class="form-control" id="username" minlength="3" required><br>
+                <label for="dept_name" name="dptname">Department Name</label>
+                <select id="dept_name" name="dpt_name" class="form-control">
+                    {% for dptdata in deptdata %}
+                    <option value="{{dptdata.dept_name}}">{{dptdata.dept_name}}</option>
+                    {% endfor %}
+                </select><br>
+
+                <label for="bld_grp">Blood Group</label>
+                <select id="bld_grp" class="form-control" name='bldgrp'>
+                    <option value="A+">A+ ve</option>
+                    <option value="A-">A- ve</option>
+                    <option value="B+">B+ ve</option>
+                    <option value="B-">B- ve</option>
+                    <option value="O+">O+ ve</option>
+                    <option value="O-">O- ve</option>
+                    <option value="AB+">AB+ ve</option>
+                    <option value="AB-">AB- ve</option>
+                </select><br>
+                <label for="doj">Date of Join</label><br>
+                <input type="text" class="form-control" name="joindate" id="doj" placeholder="mm/dd/yyyy" required>
+                <br>
+                <label for="username" name="lbl_name">Password<span>(required)</span></label>
+                <input type="text" name="password" class="form-control" id="paswd" minlength="3" required><br>
+
+
+
+            </div>
+            <div class="form-group col-lg-6">
+                <label for="userid">ID</label>
+                <input type="text" class="form-control" id="userid" name="usrid"><br>
+                <label for="dob">Date of Birth</label>
+                <input type="text" class="form-control" id="dob" name="birthdate"><br>
+                <label for="phone">Contact number</label>
+                <input type="text" class="form-control" id="phone" name="phn" required onkeypress="return isNumber(event)"><br>
+
+                <label for="batch" id="lbl_batch" style="display: none;">Batch</label>
+                <select id="batch" name="batchname" class="form-control" style="display: none;">
+                    {% for btchdata in batchdata %}
+                    <option value="{{btchdata.name}}">{{btchdata.name}}</option>
+                    {% endfor %}
+                </select>
+
+
+
+            </div>
+        </div>
+
+        <div class=" row ">
+            <div class="form-group col-lg-12 ">
+                <button type="submit " class="btn btn-primary ">submit</button>
+
+            </div>
+        </div>
+    </div>
+
+</form>
+<script>
+    $(document).ready(function() {
+        $("#doj").datepicker({
+            maxDate: 0,
+            changeMonth: true,
+            changeYear: true
+        });
+    });
+    $(document).ready(function() {
+        $("#dob").datepicker({
+            maxDate: "-14y",
+            changeMonth: true,
+            changeYear: true
+        });
+    });
+
+    function hideselect() {
+        x = document.getElementById("staffselect").value;
+        console.log(x);
+        console.log(typeof(x))
+        if (x == "student") {
+            console.log("hai")
+                // document.getElementById("stafftype").style.display = "none ";
+                // document.getElementById("lbl_stafftype").style.display = "none ";
+            document.getElementById("tutorpermission").style.display = "none ";
+            document.getElementById("batch").style.display = "block";
+            document.getElementById("lbl_batch").style.display = "block";
+        } else if (document.getElementById("staffselect").value == "hod") {
+            console.log("testing....")
+            document.getElementById("tutorpermission").style.display = "none ";
+            // document.getElementById("stafftype").style.display = "block ";
+            // document.getElementById("lbl_stafftype").style.display = "block ";
+            document.getElementById("batch").style.display = "none";
+            document.getElementById("lbl_batch").style.display = "none";
+        } else {
+            // document.getElementById("stafftype").style.display = "block ";
+            // document.getElementById("lbl_stafftype").style.display = "block ";
+            document.getElementById("tutorpermission").style.display = "block ";
+            document.getElementById("batch").style.display = "none";
+            document.getElementById("lbl_batch").style.display = "none";
+        }
+    }
+
+
+    function hideradio() {
+
+        if (parseInt(document.getElementById("stafftype").value) == 1) {
+            document.getElementById("tutorpermission").style.display = "none ";
+        } else {
+            document.getElementById("tutorpermission").style.display = "block ";
+        }
+    }
+
+    function usrregvalid() {
+        //     console.log("hai");
+
+        //     var doj = document.forms["userregform"]["joindate"].value;
+        //     var crnt_date = new Date(year, month, day);
+
+        //     // var parms = doj.split(/[\.\-\/]/);
+        //     // var dd = parseInt(parms[2], 10);
+        //     // var mm = parseInt(parms[1], 10);
+        //     // var yyyy = parseInt(parms[0], 10);
+
+        //     // dj = new Date(doj);
+        //     console.log(doj);
+        //     console.log(crnt_date);
+        //     // console.log(dj);
+        //     // if (dj > Crnt_date) {
+        //     //     alert('Given date is greater than the current date.');
+        //     return false;
+        //     // }
+        //     // else {
+        //     //     alert('Given date is not greater than the current date.');
+        //     // }
+
+        //     // console.log(doj);
+        //     // console.log(crnt_date);
+        //     // console.log(dd);
+        //     // console.log(mm);
+        //     // console.log(yyyy);
+
+        //     // console.log();
+
+
+        //     // if (yyyy > crnt_date.getFullYear()) {
+        //     //     // if (mm >= crnt_date.getMonth()) {
+        //     //     //     if (dd > crnt_date.getDate()) {
+        //     //     alert("please enter correct join date ");
+        //     //     document.getElementById("doj").focus();
+        //     //     return false;
+        //     //     //     }
+        //     //     // }
+        //     // } else if (yyyy == crnt_date.getFullYear() ) {
+        //     //     if (mm > crnt_date.getMonth()) {
+        //     //         //     if (dd > crnt_date.getDate()) {
+        //     //         alert("please enter correct join date ");
+        //     //         document.getElementById("doj").focus();
+        //     //         return false;
+        //     //     } else if (mm == crnt_date.getMonth()) {
+        //     //         if (dd > crnt_date.getDate()) {
+        //     //             alert("please enter correct join date ");
+        //     //             document.getElementById("doj").focus();
+        //     //             return false;
+        //     //         }
+        //     //     }
+        // var dob = document.forms["userregform "]["birthdate"].value;
+        // var params_dob = dob.split(/[\.\-\/]/);
+        // var yyyy_dob = parseInt(params_dob[0], 10);
+        // console.log(yyyy_dob);
+        // if ((crnt_date.getFullYear() - yyyy_dob) < 14) {
+        //     alert("age is less than 14 years ");
+        //     return false;
+        // }
+
+        userid = document.forms["userregform"]["usrid"].value;
+        // console.log(userid.length);
+        if (userid.length != 6) {
+            alert("Invalid ID ");
+            return false;
+        }
+        phone = document.forms["userregform "]["phn"].value;
+        console.log(phone.length);
+        if (phone.length != 10) {
+            alert("Invalid Mobile number");
+            return false;
+        }
+        // return false;
+
+    }
+
+    function isNumber(evt) {
+        var phoneformat = /^\d{10}$/;
+
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+
+
+        // if (phone.value.match(phoneno)) {
+        //     return true;
+        // } else {
+        //     return false;
+        // }
+
+    }
+</script>
+
+{%endblock%}

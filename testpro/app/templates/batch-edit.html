@@ -1,0 +1,21 @@
+{%extends 'admin.html'%} {%block content%}
+<form method="POST" action="{{batchdata.id}}">
+    {% csrf_token %}
+    <p style="color: darkorange;">{{status}}</p>
+    <div class="form-group">
+        <label for="batchname">Batch name</label>
+        <input type="text" class="form-control" id="batchname" name="btchname" value="{{batchdata.name}}">
+    </div>
+    <div class="form-group">
+        <label for="deptid">Department</label>
+        <select id="dept_name" name="dpt_name" class="form-control">
+            {% for dptdata in deptdata %}
+            <option value="{{dptdata.dept_name}}" selected>{{dptdata.dept_name}}</option>
+                
+
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>
+{%endblock%}

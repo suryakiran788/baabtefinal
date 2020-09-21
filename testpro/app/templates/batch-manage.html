@@ -1,0 +1,23 @@
+{%extends 'admin.html'%} {%block content%} {%csrf_token%}
+<table class="table" style="margin-top: 50px;">
+    <thead>
+        <tr>
+            <th scope="col">Batch name</th>
+            <th scope="col">Department</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for databatch in batchdata %}
+        <tr>
+            <th scope="row">{{databatch.name}}</th>
+            <td>{{databatch.department}}</td>
+            <td>
+                <td><a class="btn btn-primary" id="btn_dlt_usr" href="deletebatch/{{databatch.id}}" role="button">Delete Batch</a></td>
+                <td><a class="btn btn-primary" id="btn_edt_usr" href="updatebatch/{{databatch.id}}" role="button">Update Batch</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+{%endblock%}
