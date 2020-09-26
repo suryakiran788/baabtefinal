@@ -1,6 +1,7 @@
 from django.shortcuts import render,HttpResponse,redirect
 from .models import *
 import datetime
+from django.http.response import JsonResponse
 
 # Create your views here.
 def login(request):
@@ -63,32 +64,31 @@ def usrregn(request):
 		cntct=request.POST['phn']
 		password=request.POST['password']
 		image='download.png'
-		if typusr == "student":
-			batch=request.POST['batchname']
-			checkuser=Users.objects.filter(username=usrid).exists()
-			if checkuser==True:
-				return HttpResponse("username already exist")
-			else:
-				userdata=Users(username=usrid,password=password,role=typusr)
-				userdata.save()
-				studdata=Student(name=name,std_id=usrid,department=deptname,dateofbirth=db,blood_group=blood,phone=cntct,dateofjoin=dj,batch=batch,designation=typusr,image=image)
-				studdata.save()
+		checkuser=Users.objects.filter(username=usrid).exists()
+		if checkuser==True:
+			return render(request,'user-regn.html',{"error":"User Id already taken"})
 		else:
-			if 'sectioncharrge' in request.POST:
-				sec=request.POST['sectioncharrge']
+			if typusr == "student":
+				batch=request.POST['batchname']
 				userdata=Users(username=usrid,password=password,role=typusr)
 				userdata.save()
-				print(userdata.id)
-				staffdata=Staff(name=name,std_id=userdata,department=deptname,dateofbirth=db,blood_group=blood,phone=cntct,dateofjoin=dj,sectionincharge=sec,designation=typusr,image=image)
-				staffdata.save()
+				studdata=Student(name=name,usr_id=usrid,department=deptname,dateofbirth=db,blood_group=blood,phone=cntct,dateofjoin=dj,batch=batch,designation=typusr,image=image)
+				studdata.save()
 			else:
-				userdata=Users(username=usrid,password=password,role=typusr)
-				userdata.save()
-				staffdata=Staff(name=name,std_id=userdata,department=deptname,dateofbirth=db,blood_group=blood,phone=cntct,dateofjoin=dj,designation=typusr,image=image)
-				staffdata.save()
-		deptdata=Department.objects.all()
-		batchdata=Batch.objects.all()
-		return render(request,'user-regn.html',{'status': 'Registered Successfully','deptdata':deptdata,'batchdata':batchdata})
+				if 'sectioncharrge' in request.POST:
+					sec=request.POST['sectioncharrge']
+					userdata=Users(username=usrid,password=password,role=typusr)
+					userdata.save()
+					staffdata=Staff(name=name,usr_id=usrid,department=deptname,dateofbirth=db,blood_group=blood,phone=cntct,dateofjoin=dj,sectionincharge=sec,designation=typusr,image=image)
+					staffdata.save()
+				else:
+					userdata=Users(username=usrid,password=password,role=typusr)
+					userdata.save()
+					staffdata=Staff(name=name,usr_id=usrid,department=deptname,dateofbirth=db,blood_group=blood,phone=cntct,dateofjoin=dj,designation=typusr,image=image)
+					staffdata.save()
+			deptdata=Department.objects.all()
+			batchdata=Batch.objects.all()
+			return render(request,'user-regn.html',{'status': 'Registered Successfully','deptdata':deptdata,'batchdata':batchdata})
 
 	else:
 		deptdata=Department.objects.all()
@@ -113,15 +113,14 @@ def admlogin(request):
 
 def usrmng(request):
 	stddata=Student.objects.all()
-	print(stddata.studentid)
 	stfdata=Staff.objects.all()
 	return render(request,'manage-user.html',{'userdata':stddata,'staffdata':stfdata})
 
 def dltbtch(request):
 	return render(request,'dlt-batch.html')
 
-def viewusr(request):
-	return render(request,'view-user.html')
+# def viewusr(request):
+# 	return render(request,'view-user.html')
 
 def adminexam(request):
 	return render(request,'exam.html')
@@ -134,7 +133,15 @@ def staffhome(request):
 	return render(request,'user-home.html')
 
 def userprofile(request):
-	return render(request,'profile.html')
+	id=request.session['loginid']
+	user=Users.objects.get(username=id)
+	# return HttpResponse(user.role)
+	if user.role=='student':
+		userdata=Student.objects.get(usr_id=id)
+		return render(request,'profile.html',{'userdata':userdata})
+	else:
+		userdata=Staff.objects.get(usr_id=id)
+		return render(request,'profile.html',{'userdata':userdata})
 
 def staffexam(request):
 	return render(request, 'exam-staff.html')
@@ -207,6 +214,129 @@ def dltdept(request,id):
 	Department.objects.get(id=id).delete()
 	return redirect('departmentmanage')
 
+def updtdept(request,id):
+	if request.method=='POST':
+		deptid=request.POST['dptid']
+		deptname=request.POST['dptname']
+		Department.objects.filter(id=id).update(dept_name=deptname,dept_id=deptid)
+		return redirect('departmentmanage')
+
+	else:
+		deptdata=Department.objects.get(id=id)
+		return render(request,"dept-update.html",{'deptdata':deptdata})
+
 def userlogout(request):
 	del request.session['loginid']
 	return redirect('login')
+
+def studdel(request,id):
+	Student.objects.get(usr_id=id).delete()
+	Users.objects.get(username=id).delete()
+	return redirect('usermanage')
+
+def stfdel(request,id):
+	Staff.objects.get(usr_id=id).delete()
+	Users.objects.get(username=id).delete()
+	return redirect('usermanage')
+
+def userupdate(request,id):
+	if request.method=='POST':
+		# return HttpResponse("updated")
+		typusr=request.POST['usrtype']
+		name=request.POST['usrname']
+		usrid=int(request.POST['usrid'])
+		doj=request.POST['joindate']
+		dj=datetime.datetime.strptime(doj, '%m/%d/%Y').strftime('%Y-%m-%d')
+		dob=request.POST['birthdate']
+		db=datetime.datetime.strptime(dob, '%m/%d/%Y').strftime('%Y-%m-%d')
+		deptname=request.POST['dpt_name']
+		blood=request.POST['bldgrp']
+		cntct=request.POST['phn']
+		password=request.POST['password']
+		image='download.png'
+		if typusr == "student":
+			try:
+				# checkuser=Student.objects.filter(usr_id=id).exists()
+			# if checkuser==True:
+				batch=request.POST['batchname']
+				Student.objects.get(usr_id=id).delete()
+				Users.objects.get(username=id).delete()
+				userdata=Users(username=usrid,password=password,role=typusr)
+				userdata.save()
+				studdata=Student(name=name,usr_id=usrid,department=deptname,dateofbirth=db,blood_group=blood,phone=cntct,dateofjoin=dj,batch=batch,designation=typusr,image=image)
+				studdata.save()
+				
+			except Student.DoesNotExist:
+				batch=request.POST['batchname']
+				Staff.objects.get(usr_id=id).delete()
+				Users.objects.get(username=id).delete()
+				userdata=Users(username=usrid,password=password,role=typusr)
+				userdata.save()
+				studdata=Student(name=name,usr_id=usrid,department=deptname,dateofbirth=db,blood_group=blood,phone=cntct,dateofjoin=dj,batch=batch,designation=typusr,image=image)
+				studdata.save()
+		else:
+			try:
+				if 'sectioncharrge' in request.POST:
+					sec=request.POST['sectioncharrge']
+					# Users.objects.filter(username=id).update(username=usrid,password=password,role=typusr)
+					Staff.objects.get(usr_id=id).delete()
+					Users.objects.get(username=id).delete()
+					userdata=Users(username=usrid,password=password,role=typusr)
+					userdata.save()
+					staffdata=Staff(name=name,usr_id=usrid,department=deptname,dateofbirth=db,blood_group=blood,phone=cntct,dateofjoin=dj,sectionincharge=sec,designation=typusr,image=image)
+					staffdata.save()
+				else:
+					Staff.objects.get(usr_id=id).delete()
+					Users.objects.get(username=id).delete()
+					userdata=Users(username=usrid,password=password,role=typusr)
+					userdata.save()
+					staffdata=Staff(name=name,usr_id=usrid,department=deptname,dateofbirth=db,blood_group=blood,phone=cntct,dateofjoin=dj,designation=typusr,image=image)
+					staffdata.save()
+			except Staff.DoesNotExist:
+				Student.objects.get(usr_id=id).delete()
+				Users.objects.get(username=id).delete()
+				if 'sectioncharrge' in request.POST:
+					sec=request.POST['sectioncharrge']
+					userdata=Users(username=usrid,password=password,role=typusr)
+					userdata.save()
+					staffdata=Staff(name=name,usr_id=usrid,department=deptname,dateofbirth=db,blood_group=blood,phone=cntct,dateofjoin=dj,sectionincharge=sec,designation=typusr,image=image)
+					staffdata.save()
+				else:
+					userdata=Users(username=usrid,password=password,role=typusr)
+					userdata.save()
+					staffdata=Staff(name=name,usr_id=usrid,department=deptname,dateofbirth=db,blood_group=blood,phone=cntct,dateofjoin=dj,designation=typusr,image=image)
+					staffdata.save()
+		return redirect('usermanage')
+	else:
+		userdetails=Users.objects.get(username=id)
+		# return HttpResponse(userdetails.role)	
+		dept=Department.objects.all()
+		batch=Batch.objects.all()
+		if userdetails.role=='student':
+			studentdetails=Student.objects.get(usr_id=id)
+			return render(request,"user-update.html",{ 'userdata':studentdetails,'department':dept,'batch':batch })
+		else:
+			staffdetails=Staff.objects.get(usr_id=id)
+			return render(request,"user-update.html",{ 'userdata':staffdetails,'department':dept,'batch':batch })
+
+def changepass(request):
+	if request.method=="POST":
+		password=request.POST['password']
+		id=request.session['loginid']
+		Users.objects.filter(username=id).update(password=password)
+		if Users.objects.get(username=id).role == 'student':
+			return redirect('home')
+		else:
+			return redirect('staffhome')
+	else:
+		return render(request,"changepassword.html")
+
+# def checkpass(request):
+# 	password=request.POST['pass']
+# 	cnfpass=request.POST['cnfpass']
+# 	if password == cnfpass:
+# 		return JsonResponse({'message': "Password and confirmpassword is matching"})
+# 	else:
+# 		return JsonResponse({'message': "Password is mismatching"})
+
+

@@ -17,6 +17,7 @@
             <th scope="col">Blood Group</th>
             <th scope="col">Contact</th>
             <th scope="col">Date Of Join</th>
+            <th scope="col">batch</th>
             <th scope="col">Role</th>
             <th scope="col"></th>
             <th scope="col"></th>
@@ -25,29 +26,31 @@
     <tbody>
         {% for usrdata in userdata %}
         <tr>
-            <td>{{usrdata.std_id}}</td>
+            <td>{{usrdata.usr_id}}</td>
             <td>{{usrdata.name}}</td>
             <td>{{usrdata.department}}</td>
             <td>{{usrdata.dateofbirth}}</td>
             <td>{{usrdata.blood_group}}</td>
             <td>{{usrdata.phone}}</td>
             <td>{{usrdata.dateofjoin}}</td>
+            <td>{{usrdata.batch}}</td>
             <td>{{usrdata.designation}}</td>
-            <td><a class="btn btn-primary" id="btn_dlt_usr" href="#" role="button">Delete User</a></td>
-            <td><a class="btn btn-primary" id="btn_edt_usr" href="#" role="button">Update User</a></td>
+            <td><a class="btn btn-primary" id="btn_dlt_usr" href="studentdelete/{{usrdata.usr_id}}" role="button">Delete User</a></td>
+            <td><a class="btn btn-primary" id="btn_edt_usr" href="userupdate/{{usrdata.usr_id}}" role="button">Update User</a></td>
         </tr>
         {% endfor %} {% for usrdata in staffdata %}
         <tr>
-            <td>{{usrdata.std_id}}</td>
+            <td>{{usrdata.usr_id}}</td>
             <td>{{usrdata.name}}</td>
             <td>{{usrdata.department}}</td>
             <td>{{usrdata.dateofbirth}}</td>
             <td>{{usrdata.blood_group}}</td>
             <td>{{usrdata.phone}}</td>
             <td>{{usrdata.dateofjoin}}</td>
+            <td>Nil</td>
             <td>{{usrdata.designation}}</td>
-            <td><a class="btn btn-primary" id="btn_dlt_usr" href="#" role="button">Delete User</a></td>
-            <td><a class="btn btn-primary" id="btn_edt_usr" href="#" role="button">Update User</a></td>
+            <td><a class="btn btn-primary" id="btn_dlt_usr" href="staffdelete/{{usrdata.usr_id}}" role="button">Delete User</a></td>
+            <td><a class="btn btn-primary" id="btn_edt_usr" href="userupdate/{{usrdata.usr_id}}" role="button">Update User</a></td>
         </tr>
         {% endfor %}
     </tbody>

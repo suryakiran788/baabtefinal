@@ -7,11 +7,11 @@ class Department(models.Model):
     dept_id=models.IntegerField()
 
 class Batch(models.Model):
-    name=models.CharField(max_length=30, unique=True, null=False)
+    name=models.CharField(max_length=30, null=False)
     department=models.CharField(max_length=30)
 
 class Users(models.Model):
-    username=models.BigIntegerField()
+    username=models.BigIntegerField(primary_key=True)
     password=models.CharField(max_length=30)
     role=models.CharField(max_length=30)
 
@@ -19,7 +19,7 @@ class Users(models.Model):
 class Student(models.Model):
     name=models.CharField(max_length=30)
     # std_id=models.ForeignKey(Users, on_delete=models.CASCADE, primary_key=True)
-    std_id=models.ForeignKey(Users,on_delete=models.CASCADE)
+    usr=models.ForeignKey(Users,on_delete=models.CASCADE)
     department=models.CharField(max_length=30)
     dateofbirth=models.DateField(blank=True, null=True) 
     blood_group=models.CharField(max_length=5)
@@ -31,7 +31,7 @@ class Student(models.Model):
 
 class Staff(models.Model):
     name=models.CharField(max_length=30)
-    std_id=models.ForeignKey(Users, on_delete=models.CASCADE)
+    usr=models.ForeignKey(Users, on_delete=models.CASCADE)
     department=models.CharField(max_length=30)
     dateofbirth=models.DateField(blank=True, null=True) 
     blood_group=models.CharField(max_length=5)
