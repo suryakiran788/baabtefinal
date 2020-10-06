@@ -6,66 +6,22 @@
     </div> -->
     <div class="col-lg-12">
         <h3 class="head3">Create Exam</h3>
-        <form action="">
+        <form action="Manageexam" method="POST">
+            {% csrf_token %}
             <div class="form-group">
                 <label for="examname">Exam Name</label><br>
-                <input type="text" class="form-control" id="examname">
+                <input type="text" class="form-control" id="examname" name="examname" required>
             </div>
             <div class="form-group">
                 <label>Select your Department</label><br>
 
-                <input type="checkbox"> <label>&nbsp&nbsp CS</label><br>
-                <input type="checkbox"> <label>&nbsp&nbsp Mech</label><br>
-                <input type="checkbox"> <label>&nbsp&nbsp EEE</label><br>
+                <select id="dept_name" name="dpt_name" class="form-control">
+                    {% for dptdata in deptdata %}               
+                        <option value="{{dptdata.dept_name}}">{{dptdata.dept_name}}</option>
+                    {% endfor %}
+                </select><br>
+                <button type="submit" class="btn btn-primary">Add questions</button>
             </div>
-            <div class="form-group">
-                <label for="examquestion">Question:</label>
-                <textarea class="form-control" id="examquestion" rows="3" placeholder="Enter your question"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="exam-fileattach">Attach your file</label><br>
-                <input type="file" class="" id="exam-fileattach">
-            </div>
-            <label>Options(Check correct option)</label>
-
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <div class="input-group-text">
-                        <input type="radio" name="crctans">
-                    </div>
-                </div>
-                <input type="text" class="form-control">
-            </div>
-            <br>
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <div class="input-group-text">
-                        <input type="radio" name="crctans">
-                    </div>
-                </div>
-                <input type="text" class="form-control">
-            </div>
-            <br>
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <div class="input-group-text">
-                        <input type="radio" name="crctans">
-                    </div>
-                </div>
-                <input type="text" class="form-control">
-            </div>
-            <br>
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <div class="input-group-text">
-                        <input type="radio" name="crctans">
-                    </div>
-                </div>
-                <input type="text" class="form-control">
-            </div>
-            <br>
-            <button type="button" class="btn btn-primary">Next</button>
-            <button type="button" class="btn btn-primary" onclick="readexamname()">Finish</button>
         </form>
     </div>
     <div class="col-lg-12">

@@ -2,6 +2,9 @@ from django.shortcuts import render,HttpResponse,redirect
 from .models import *
 import datetime
 from django.http.response import JsonResponse
+from random import random
+from django.core.files.storage import FileSystemStorage
+from django.db.models import Count
 
 # Create your views here.
 def login(request):
@@ -70,9 +73,10 @@ def usrregn(request):
 		else:
 			if typusr == "student":
 				batch=request.POST['batchname']
+				semester=request.POST['sem']
 				userdata=Users(username=usrid,password=password,role=typusr)
 				userdata.save()
-				studdata=Student(name=name,usr_id=usrid,department=deptname,dateofbirth=db,blood_group=blood,phone=cntct,dateofjoin=dj,batch=batch,designation=typusr,image=image)
+				studdata=Student(name=name,usr_id=usrid,department=deptname,dateofbirth=db,blood_group=blood,phone=cntct,dateofjoin=dj,batch=batch,designation=typusr,image=image,semester=semester)
 				studdata.save()
 			else:
 				if 'sectioncharrge' in request.POST:
@@ -129,7 +133,6 @@ def adminfee(request):
 	return render(request,'fees-admin.html')
 
 def staffhome(request):
-
 	return render(request,'user-home.html')
 
 def userprofile(request):
@@ -155,7 +158,44 @@ def viewresult(request):
 	return render(request,"viewresult_staff.html")
 
 def manageexam(request):
-	return render(request,"mng-exam.html")
+	if request.method=='POST':
+		examname=request.POST['examname']
+		request.session['exam']=examname
+		request.session['deptname']=request.POST['dpt_name']
+		return redirect('createexam')	
+	else:
+		deptdata=Department.objects.all()
+		return render(request,"mng-exam.html",{'deptdata':deptdata})
+
+def createexam(request):
+	if request.method=='POST':
+		examname=request.session['exam']
+		department=request.session['deptname']
+		question=request.POST['question']
+		# attachment=request.FILES['attachment']
+		opt1=request.POST['opt1']
+		opt2=request.POST['opt2']
+		opt3=request.POST['opt3']
+		opt4=request.POST['opt4']
+		crctans=request.POST['crctans']
+		if crctans=="opt1":
+			crctopt=request.POST['opt1']
+		elif crctans=="opt2":
+			crctopt=request.POST['opt2']
+		elif crctans=="opt3":
+			crctopt=request.POST['opt3']
+		else:
+			crctopt=request.POST['opt4']
+		examdata=Exam(examname=examname,department=department,question=question,opt1=opt1,opt2=opt2,opt3=opt3,opt4=opt4,crctopt=crctopt,subject='nil')
+		examdata.save()
+		try:
+			examnxt=request.POST['nextexam']
+			return redirect('createexam')
+		except:
+			return redirect('Manageexam')
+
+	else:
+		return render(request,"createexam.html")
 
 def stafffee(request):
 	return render(request,"fee-staff.html")
@@ -259,11 +299,12 @@ def userupdate(request,id):
 				# checkuser=Student.objects.filter(usr_id=id).exists()
 			# if checkuser==True:
 				batch=request.POST['batchname']
+				semester=int(request.POST['sem'])
 				Student.objects.get(usr_id=id).delete()
 				Users.objects.get(username=id).delete()
 				userdata=Users(username=usrid,password=password,role=typusr)
 				userdata.save()
-				studdata=Student(name=name,usr_id=usrid,department=deptname,dateofbirth=db,blood_group=blood,phone=cntct,dateofjoin=dj,batch=batch,designation=typusr,image=image)
+				studdata=Student(name=name,usr_id=usrid,department=deptname,dateofbirth=db,blood_group=blood,phone=cntct,dateofjoin=dj,batch=batch,designation=typusr,image=image,semester=semester)
 				studdata.save()
 				
 			except Student.DoesNotExist:
@@ -339,4 +380,69 @@ def changepass(request):
 # 	else:
 # 		return JsonResponse({'message': "Password is mismatching"})
 
+# def changeimg(request):
+# 	fileup=request.FILES['fileupld']
+# 	filename=str(random())+fileup.name
+# 	fs=FileSystemStorage()
+# 	fs.save(filename)
 
+def changeimg(request):
+	fileup=request.FILES['fileupld']
+	filename=str(random())+fileup.name
+	fs=FileSystemStorage(location='app/media/profileimage/',base_url='app/media/')
+    # fs.save(filename,fileup)
+	id = request.session['loginid']
+
+	if Users.objects.get(username=id).role == 'student':
+		fs.save(filename,fileup)
+		Student.objects.filter(usr_id=id).update(image=filename)
+		return redirect('profile')
+	else:
+		fs.save(filename,fileup)
+		Staff.objects.filter(usr_id=id).update(image=filename)
+		return redirect('profile')
+
+def startexam(request):
+	examdata=Exam.objects.filter(department='Mechanical')
+	return render(request,"attendexam.html",{'examdata':examdata})
+
+def mngbook(request):
+	# deptdata=Department.objects.all()
+	# for dept in deptdata:
+	# 	for semester in 
+	# 		sembookcnt=Book.objects.filter(department=dept.dept_name)
+	# 		dptbookcnt=
+	if request.method=='POST':
+		bookname=request.POST['bkname']
+		semester=request.POST['semester']
+		dept=request.POST['department']
+		bkfile=request.FILES['book']
+		bkfilename=str(random())+bkfile.name
+		fs=FileSystemStorage(location='app/media/books/',base_url='app/media/')
+		fs.save(bkfilename,bkfile)
+		bkdata=Book(bookname=bookname,department=dept,semester=semester)
+		bkdata.save()
+		deptdata=Department.objects.all()
+		semdata=Student.objects.all().distinct()
+		bookdata=Book.objects.all()
+		return render(request,"manage-book.html",{'status':"book uploaded successfully",'bookdata':bookdata,'deptdata':deptdata,'semdata':semdata})
+
+	else:
+		
+		deptdata=Department.objects.all()
+		# print(Student.objects.values('semester').annotate(cnt=Count('semester'))[0])
+		# semdata=Student.objects.all().values('semester')
+		semdata=Student.objects.values('semester').annotate(dcount=Count('semester'))
+		# semdata=Student.objects.annotate()group_by('semester'))
+		bookdata=Book.objects.all()
+		for sem in semdata:
+			print(sem)
+		return render(request,"manage-book.html",{'bookdata':bookdata,'deptdata':deptdata,'semdata':semdata})
+
+def studbook(request):
+	userid=request.session['loginid']
+	userdata=Student.objects.get(usr_id=userid)
+	sem=userdata.semester
+	dept=userdata.department
+	bookdata=Book.objects.filter(department=dept,semester=sem)
+	return render(request,"stud-book.html",{'bookdata':bookdata})

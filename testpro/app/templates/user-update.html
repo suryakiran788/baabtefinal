@@ -8,9 +8,19 @@
                 <div class="form-group col-lg-6">
                     <label for="staffselect">Type of user</label>
                     <select id="staffselect" onchange="hideselect()" class="form-control" name="usrtype">
-                    <option selected  value="staff">Tutor</option>
-                    <option value="hod">HOD</option>
-                    <option  value="student">Student</option>
+                        {% if userdata.designation == 'staff' %}
+                            <option value="staff">Tutor</option>
+                            <option  value="student">Student</option> 
+                            <option value="hod">HOD</option>
+                        {% elif userdata.designation == 'student' %}
+                            <option  value="student">Student</option> 
+                            <option value="staff">Tutor</option>
+                            <option value="hod">HOD</option>
+                        {% else %}
+                            <option value="hod">HOD</option>
+                            <option value="staff">Tutor</option>
+                            <option  value="student">Student</option> 
+                        {% endif %}
                 </select>
                 </div>
                 <br>
@@ -31,8 +41,8 @@
                     <label for="dept_name" name="dptname">Department Name</label>
                     <select id="dept_name" name="dpt_name" class="form-control">
                         {% for dptdata in department %}
-                            {% if dptdata.dept_name in userdata.name %}
-                                <option value="{{userdata.department}}" selected>{{userdata.department}}</option>
+                            {% if dptdata.dept_name == userdata.department %}
+                                <option value="{{dptdata.dept_name}}" selected>{{dptdata.dept_name}}</option>
                             {% else %}
                                 <option value="{{dptdata.dept_name}}">{{dptdata.dept_name}}</option>
                             {% endif %}
@@ -62,9 +72,9 @@
                 <div class="form-group col-lg-6">
                     <p style="color: red;">{{ error }}</p>
                     <label for="userid">ID</label>
-                    <input type="text" class="form-control" id="userid" name="usrid" value="{{userdata.usr_id}}"><br>
+                    <input type="text" class="form-control" id="userid" name="usrid" readonly value="{{userdata.usr_id}}"><br>
                     <label for="dob">Date of Birth</label>
-                    <input type="text" class="form-control" id="dob" name="birthdate" value="{{userdata.dateofbirth}}"><br>
+                    <input type="text" class="form-control" id="dob" name="birthdate" data-date-format="DD MMMM YYYY" value="{{userdata.dateofbirth}}"><br>
                     <label for="phone">Contact number</label>
                     <input type="text" class="form-control" id="phone" name="phn" value="{{userdata.phone}}" required onkeypress="return isNumber(event)"><br>
 
@@ -73,9 +83,9 @@
                         {% for btchdata in batch %}
                         <option value="{{btchdata.name}}">{{btchdata.name}}</option>
                         {% endfor %}
-                    </select>
-
-
+                    </select><br>
+                    <label for="semester" id="lbl_semester" style="display: none;">semester</label>
+                    <input type="text" class="form-control" id="semester" name="sem" value="{{userdata.semester}}" required style="display: none;"><br>
 
                 </div>
             </div>
@@ -83,7 +93,7 @@
             <div class=" row ">
                 <div class="form-group col-lg-12 ">
                     <button type="submit " class="btn btn-primary ">submit</button>
-                    <button type="button" class="btn btn-primary ">Cancel</button>
+                    <button type="button " class="btn btn-primary ">Cancel</button>
 
                 </div>
             </div>
@@ -93,17 +103,19 @@
 </div>
 <script>
     $(document).ready(function() {
-        $("#doj").datepicker({
+        $("#doj ").datepicker({
             maxDate: 0,
             changeMonth: true,
-            changeYear: true
+            changeYear: true,
+            Format: 'mm-dd-yy'
         });
     });
     $(document).ready(function() {
-        $("#dob").datepicker({
-            maxDate: "-14y",
+        $("#dob ").datepicker({
+            maxDate: "-14y ",
             changeMonth: true,
-            changeYear: true
+            changeYear: true,
+            Format: 'mm-dd-yy'
         });
     });
 
@@ -113,40 +125,46 @@
         console.log(typeof(x))
         if (x == "student") {
             console.log("hai")
-            document.getElementById("tutorpermission").style.display = "none ";
+            document.getElementById("tutorpermission").style.display = "none";
             document.getElementById("batch").style.display = "block";
             document.getElementById("lbl_batch").style.display = "block";
+            document.getElementById("semester").style.display = "block";
+            document.getElementById("lbl_semester").style.display = "block";
+
         } else if (document.getElementById("staffselect").value == "hod") {
-            console.log("testing....")
-            document.getElementById("tutorpermission").style.display = "none ";
-            document.getElementById("batch").style.display = "none";
+            document.getElementById("tutorpermission").style.display = "none";
+            document.getElementById("batch").style.display = "none ";
             document.getElementById("lbl_batch").style.display = "none";
+            document.getElementById("semester").style.display = "none";
+            document.getElementById("lbl_semester").style.display = "none";
         } else {
-            document.getElementById("tutorpermission").style.display = "block ";
+            document.getElementById("tutorpermission").style.display = "block";
             document.getElementById("batch").style.display = "none";
             document.getElementById("lbl_batch").style.display = "none";
+            document.getElementById("semester").style.display = "none";
+            document.getElementById("lbl_semester").style.display = "none";
         }
     }
 
 
     function hideradio() {
-        if (parseInt(document.getElementById("stafftype").value) == 1) {
-            document.getElementById("tutorpermission").style.display = "none ";
+        if (parseInt(document.getElementById("stafftype ").value) == 1) {
+            document.getElementById("tutorpermission ").style.display = "none ";
         } else {
-            document.getElementById("tutorpermission").style.display = "block ";
+            document.getElementById("tutorpermission ").style.display = "block ";
         }
     }
 
     function usrregvalid() {
 
-        userid = document.forms["userregform"]["usrid"].value;
+        userid = document.forms["userregform "]["usrid "].value;
         if (userid.length != 6) {
             alert("Invalid ID ");
             return false;
         }
-        phone = document.forms["userregform "]["phn"].value;
+        phone = document.forms["userregform "]["phn "].value;
         if (phone.length != 10) {
-            alert("Invalid Mobile number");
+            alert("Invalid Mobile number ");
             return false;
         }
 

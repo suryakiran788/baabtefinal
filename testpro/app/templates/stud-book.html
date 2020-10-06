@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% load static %}
+    <div class="row">
+        {% for bkdata in bookdata %}
+        <div style="align-items: center;">
+            <!-- <embed src="/app/media/books/0.2443724513005484form4_2897004.pdf" type="app/pdf"> -->
+            <!-- <a href="/app/media/books/0.2443724513005484form4_2897004.pdf"> click here</a> -->
+            <!-- <iframe src="/app/media/books/0.2443724513005484form4_2897004.pdf" frameborder="0"> -->
+            <!-- <embed src="/app/media/books/0.2443724513005484form4_2897004.pdf" type="pdf"> -->
+            <embed src="{image_link}" width="620px" height="420px" alt="pdf" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html">
+            <!-- </iframe> -->
+            <!-- <iframe src="/app/media/books/0.2443724513005484form4_2897004.pdf&embedded=true" frameborder="0" height="800px" width="500px"></iframe> -->
+        </div>
+        {% endfor %}
+
+    </div>
+    </div>
+</body>
+
+</html>

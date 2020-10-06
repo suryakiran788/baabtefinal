@@ -28,6 +28,7 @@ class Student(models.Model):
     batch=models.CharField(max_length=20)
     designation=models.CharField(max_length=30)
     image=models.CharField(max_length=50)
+    semester=models.BigIntegerField()
 
 class Staff(models.Model):
     name=models.CharField(max_length=30)
@@ -47,10 +48,23 @@ class Admin(models.Model):
     password=models.CharField(max_length=30)
 # (input_formats=DATE_INPUT_FORMATS) 
 
+class Exam(models.Model):
+    examname=models.CharField(max_length=30)
+    question=models.CharField(max_length=250)
+    opt1=models.CharField(max_length=30)
+    opt2=models.CharField(max_length=30)
+    opt3=models.CharField(max_length=30)
+    opt4=models.CharField(max_length=30)
+    crctopt=models.CharField(max_length=30)
+    filename=models.CharField(max_length=50,default='nil')
+    subject=models.CharField(max_length=30, default='nil')
+    # semester=models.IntegerField()
+    department=models.CharField(max_length=50, default="nil")    
+    staffid=models.BigIntegerField(default=0)
 
-
-
-
-    
+class Book(models.Model):
+   bookname=models.CharField(max_length=30)
+   department=models.CharField(max_length=30)
+   semester=models.BigIntegerField()
 
  

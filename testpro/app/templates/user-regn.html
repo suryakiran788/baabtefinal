@@ -75,7 +75,9 @@
                     {% for btchdata in batchdata %}
                     <option value="{{btchdata.name}}">{{btchdata.name}}</option>
                     {% endfor %}
-                </select>
+                </select><br>
+                <label for="semester" id="lbl_semester" style="display: none;">semester</label>
+                <input type="text" class="form-control" id="semester" name="sem" style="display: none;"><br>
 
 
 
@@ -113,19 +115,23 @@
         console.log(typeof(x))
         if (x == "student") {
             console.log("hai")
-                // document.getElementById("stafftype").style.display = "none ";
-                // document.getElementById("lbl_stafftype").style.display = "none ";
+            document.getElementById("semester").style.display = "block";
+            document.getElementById("lbl_semester").style.display = "block";
             document.getElementById("tutorpermission").style.display = "none ";
             document.getElementById("batch").style.display = "block";
             document.getElementById("lbl_batch").style.display = "block";
         } else if (document.getElementById("staffselect").value == "hod") {
             console.log("testing....")
+            document.getElementById("semester").style.display = "none";
+            document.getElementById("lbl_semester").style.display = "none";
             document.getElementById("tutorpermission").style.display = "none ";
             // document.getElementById("stafftype").style.display = "block ";
             // document.getElementById("lbl_stafftype").style.display = "block ";
             document.getElementById("batch").style.display = "none";
             document.getElementById("lbl_batch").style.display = "none";
         } else {
+            document.getElementById("semester").style.display = "none";
+            document.getElementById("lbl_semester").style.display = "none";
             // document.getElementById("stafftype").style.display = "block ";
             // document.getElementById("lbl_stafftype").style.display = "block ";
             document.getElementById("tutorpermission").style.display = "block ";
@@ -145,66 +151,7 @@
     }
 
     function usrregvalid() {
-        //     console.log("hai");
 
-        //     var doj = document.forms["userregform"]["joindate"].value;
-        //     var crnt_date = new Date(year, month, day);
-
-        //     // var parms = doj.split(/[\.\-\/]/);
-        //     // var dd = parseInt(parms[2], 10);
-        //     // var mm = parseInt(parms[1], 10);
-        //     // var yyyy = parseInt(parms[0], 10);
-
-        //     // dj = new Date(doj);
-        //     console.log(doj);
-        //     console.log(crnt_date);
-        //     // console.log(dj);
-        //     // if (dj > Crnt_date) {
-        //     //     alert('Given date is greater than the current date.');
-        //     return false;
-        //     // }
-        //     // else {
-        //     //     alert('Given date is not greater than the current date.');
-        //     // }
-
-        //     // console.log(doj);
-        //     // console.log(crnt_date);
-        //     // console.log(dd);
-        //     // console.log(mm);
-        //     // console.log(yyyy);
-
-        //     // console.log();
-
-
-        //     // if (yyyy > crnt_date.getFullYear()) {
-        //     //     // if (mm >= crnt_date.getMonth()) {
-        //     //     //     if (dd > crnt_date.getDate()) {
-        //     //     alert("please enter correct join date ");
-        //     //     document.getElementById("doj").focus();
-        //     //     return false;
-        //     //     //     }
-        //     //     // }
-        //     // } else if (yyyy == crnt_date.getFullYear() ) {
-        //     //     if (mm > crnt_date.getMonth()) {
-        //     //         //     if (dd > crnt_date.getDate()) {
-        //     //         alert("please enter correct join date ");
-        //     //         document.getElementById("doj").focus();
-        //     //         return false;
-        //     //     } else if (mm == crnt_date.getMonth()) {
-        //     //         if (dd > crnt_date.getDate()) {
-        //     //             alert("please enter correct join date ");
-        //     //             document.getElementById("doj").focus();
-        //     //             return false;
-        //     //         }
-        //     //     }
-        // var dob = document.forms["userregform "]["birthdate"].value;
-        // var params_dob = dob.split(/[\.\-\/]/);
-        // var yyyy_dob = parseInt(params_dob[0], 10);
-        // console.log(yyyy_dob);
-        // if ((crnt_date.getFullYear() - yyyy_dob) < 14) {
-        //     alert("age is less than 14 years ");
-        //     return false;
-        // }
 
         userid = document.forms["userregform"]["usrid"].value;
         // console.log(userid.length);

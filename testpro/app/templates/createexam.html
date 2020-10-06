@@ -1,0 +1,63 @@
+{%extends 'exam-staff.html'%} {%block feecontent%}
+<div class="row">
+    <!-- <div class="col-lg-6">
+        <br>
+
+    </div> -->
+    <div class="col-lg-12">
+        <h3 class="head3">Add your questions</h3>
+        <form action="createexam" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="examquestion">Question:</label>
+                <textarea class="form-control" id="examquestion" rows="3" name="question" placeholder="Enter your question"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="exam-fileattach">Attach your file</label><br>
+                <input type="file" class="" name="attachment" id="exam-fileattach">
+            </div>
+            <label>Options(Check correct option)</label>
+
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <input type="radio" name="crctans" value="opt1">
+                    </div>
+                </div>
+                <input type="text" name="opt1" class="form-control">
+            </div>
+            <br>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <input type="radio" name="crctans" value="opt2">
+                    </div>
+                </div>
+                <input type="text" name="opt2" class="form-control">
+            </div>
+            <br>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <input type="radio" name="crctans" value="opt3">
+                    </div>
+                </div>
+                <input type="text" name="opt3" class="form-control">
+            </div>
+            <br>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <input type="radio" name="crctans" value="opt4">
+                    </div>
+                </div>
+                <input type="text" name="opt4" class="form-control">
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary" name="nextexam" value="next">Next</button>
+            <button type="submit" class="btn btn-primary" value="finish">Finish</button>
+        </form>
+    </div>
+
+</div>
+{%endblock%}

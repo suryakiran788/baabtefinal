@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>Start your exam</h2>
+    <form action="">
+        <div style="padding-left: 10px;">
+            {% for examdata in examdata %}
+            <p style="font-size: large; font-weight: bold;">{{ examdata.question }}</p>
+            <label for="opt1"><input type="radio" id="opt1" name="{{examdata.id}}ans" value="{{ examdata.opt1 }}">&nbsp;{{ examdata.opt1 }}</label>&nbsp;&nbsp;&nbsp;
+            <label for="opt2"><input type="radio" id="opt2" name="{{examdata.id}}ans" value="{{ examdata.opt2 }}">&nbsp;{{ examdata.opt2 }}</label>&nbsp;&nbsp;&nbsp;
+            <label for="opt3"><input type="radio" id="opt3" name="{{examdata.id}}ans" value="{{ examdata.opt3 }}">&nbsp;{{ examdata.opt3 }}</label>&nbsp;&nbsp;&nbsp;
+            <label for="opt4"><input type="radio" id="opt4" name="{{examdata.id}}ans" value="{{ examdata.opt4 }}">&nbsp;{{ examdata.opt4 }}</label>&nbsp; {% endfor %}
+            <br>
+            <button>Finish</button>
+        </div>
+
+    </form>
+</body>
+
+</html>

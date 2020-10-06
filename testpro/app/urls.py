@@ -37,4 +37,10 @@ urlpatterns = [
     path('userupdate/<int:id>',views.userupdate,name='userupdate'),
     path('changepass',views.changepass,name="changepass"),
     # path('checkpass',views.checkpass,name="checkpass"),
+    path('changepicture',views.changeimg,name="changepicture"),
+    path('createexam',views.createexam,name="createexam"),
+    path('startexam',views.startexam,name="startexam"),
+    path('bookmanage',views.mngbook,name="bookmanage"),
+    path('student-book',views.studbook,name="student-book")
 ]
+

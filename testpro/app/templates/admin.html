@@ -13,7 +13,6 @@
 
 
 
-
     <link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" rel="Stylesheet" type="text/css" />
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
@@ -53,6 +52,10 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'adminexam' %}">Exam</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="{% url 'bookmanage' %}" tabindex="-1" aria-disabled="true">Syllabus Management</a>
+            </li>
+
             <li class="nav-item">
                 <a class="nav-link disabled" href="{% url 'adminfee' %}" tabindex="-1" aria-disabled="true">Fees</a>
             </li>
