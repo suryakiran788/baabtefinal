@@ -17,14 +17,12 @@
                 <table class="table">
 
                     <tbody>
+                        {% for exmdata in examdata%}
                         <tr>
-                            <th>maths q2</th>
-                            <td><button type="button" class="btn btn-success">Start Exam</button></td>
+                            <th>{{exmdata.examname}}</th>
+                            <td><a class="btn btn-success" href="startexam/{{exmdata.examname}}">Start Exam</a></td>
                         </tr>
-                        <tr>
-                            <th>CPP</th>
-                            <td><button type="button" class="btn btn-success">Start Exam</button></td>
-                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
 
@@ -35,18 +33,26 @@
                     <thead>
                         <tr>
                             <th scope="col">Name of exam</th>
+                            <th scope="col">semester</th>
                             <th scope="col">Total mark</th>
                             <th scope="col">Mark obtained</th>
                             <th scope="col">Status</th>
                         </tr>
                     </thead>
                     <tbody>
+                        {% for rslt in result %}
                         <tr>
-                            <td>Cpp</td>
-                            <td>25</td>
+                            <td>{{ rslt.examname }}</td>
+                            <td>{{ rslt.semester }}</td>
                             <td>20</td>
+                            <td>{{ rslt.mark }}</td>
+                            {% if rslt.mark >= 9 %}
                             <td>Passed</td>
+                            {% else %}
+                            <td>Failed</td>
+                            {%endif%}
                         </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>

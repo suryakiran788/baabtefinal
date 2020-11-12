@@ -15,9 +15,9 @@
         <div>
             <form action="changepicture" id="pictureupload" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                <img src="/app/media/profileimage/{{ userdata.image }}" class="rounded mx-auto d-block">
-                <input type="file" name='fileupld' value="test" id="imgupload" style="display:none" />
-                <button id="OpenImgUpload" type="button" onclick="getAjax()" class="btn btn-primary d-block mx-auto">change profile picture</button>
+                <img src="/app/media/profileimage/{{ userdata.image }}" class="rounded mx-auto d-block" height="200px" width="260px">
+                <input type="file" name='fileupld' value="test" id="imgupload" style="display:none" accept="image/x-png,image/gif,image/jpeg" />
+                <button id="OpenImgUpload" type="button" class="btn btn-primary d-block mx-auto">change profile picture</button>
             </form>
         </div>
 

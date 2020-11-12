@@ -136,3 +136,11 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
 DATE_INPUT_FORMATS = ('%d/%m/%y','%y/%m/%d')
 MEDIA_URL = 'app/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'app/media')
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.yourserver.com'
+EMAIL_PORT = '587'
+EMAIL_HOST_USER = 'kiransurya032@gmail.com'
+
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False

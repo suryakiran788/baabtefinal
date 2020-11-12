@@ -6,8 +6,20 @@
         <div class="row">
             <div class="row">
                 <div class="form-group col-lg-6">
-                    <label for="staffselect">Type of user</label>
+
+                    <label for="staffselect">Type of user</label> {% if userdata.designation == 'student' %}
                     <select id="staffselect" onchange="hideselect()" class="form-control" name="usrtype">
+                        <option  value="student">Student</option>
+                    </select> {% elif userdata.designation == 'staff' %}
+                    <select id="staffselect" onchange="hideselect()" class="form-control" name="usrtype">
+                        <option value="staff">Tutor</option>
+                        <option value="hod">HOD</option>
+                    </select> {% else %}
+                    <select id="staffselect" onchange="hideselect()" class="form-control" name="usrtype">
+                        <option value="hod">HOD</option>
+                        <option value="staff">Tutor</option>
+                    </select> {% endif %}
+                    <!-- <select id="staffselect" onchange="hideselect()" class="form-control" name="usrtype">
                         {% if userdata.designation == 'staff' %}
                             <option value="staff">Tutor</option>
                             <option  value="student">Student</option> 
@@ -21,7 +33,7 @@
                             <option value="staff">Tutor</option>
                             <option  value="student">Student</option> 
                         {% endif %}
-                </select>
+                </select> -->
                 </div>
                 <br>
 
@@ -63,8 +75,6 @@
                     <label for="doj">Date of Join</label><br>
                     <input type="text" class="form-control" name="joindate" id="doj" placeholder="mm/dd/yyyy" value="{{userdata.dateofjoin}}" required>
                     <br>
-                    <label for="username" name="lbl_name">Password<span>(required)</span></label>
-                    <input type="text" name="password" class="form-control" id="paswd" minlength="3" required><br>
 
 
 
@@ -76,16 +86,15 @@
                     <label for="dob">Date of Birth</label>
                     <input type="text" class="form-control" id="dob" name="birthdate" data-date-format="DD MMMM YYYY" value="{{userdata.dateofbirth}}"><br>
                     <label for="phone">Contact number</label>
-                    <input type="text" class="form-control" id="phone" name="phn" value="{{userdata.phone}}" required onkeypress="return isNumber(event)"><br>
-
-                    <label for="batch" id="lbl_batch" style="display: none;">Batch</label>
-                    <select id="batch" name="batchname" class="form-control" style="display: none;">
+                    <input type="text" class="form-control" id="phone" name="phn" value="{{userdata.phone}}" required onkeypress="return isNumber(event)"><br> {% if userdata.designation == 'student' %}
+                    <label for="batch" id="lbl_batch">Batch</label>
+                    <select id="batch" name="batchname" class="form-control">
                         {% for btchdata in batch %}
                         <option value="{{btchdata.name}}">{{btchdata.name}}</option>
                         {% endfor %}
-                    </select><br>
-                    <label for="semester" id="lbl_semester" style="display: none;">semester</label>
-                    <input type="text" class="form-control" id="semester" name="sem" value="{{userdata.semester}}" required style="display: none;"><br>
+                    </select><br> {% endif %}
+                    <!-- <label for="semester" id="lbl_semester" style="display: none;">semester</label>
+                    <input type="text" class="form-control" id="semester" name="sem" value="{{userdata.semester}}" required style="display: none;"><br> -->
 
                 </div>
             </div>

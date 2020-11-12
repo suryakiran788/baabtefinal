@@ -1,0 +1,43 @@
+{%extends 'hod-exam.html'%} {%block hodmanageexam%}
+<div class="row">
+
+    <div class="col-lg-12">
+        <h3 class="head3">Exam Result</h3>
+    </div>
+    <div class="col-lg-12">
+        <form class="" method="POST" action="viewresult">
+            {% csrf_token %}
+            <label for="deptname">Department name</label>
+            <select class="custom-select" id="deptname" name="department" required>
+                {% for input in deptdata %}
+                    <option value="{{input.dept_name}}">{{input.dept_name}}</option>
+                {% endfor %}
+            </select>
+            <br><br>
+            <label for="sem">Semester</label>
+            <select class="custom-select" id="sem" name="semester" required>
+                {% for input in semdata %}
+                    <option value="{{input.semester}}">{{input.semester}}</option>
+                {% endfor %}
+            </select>
+            <br><br>
+            <label for="testname">Test name</label>
+            <select class="custom-select" id="testname" name="examname" required>
+                {% for input in inputdata %}
+                    <option value="{{input.examname}}">{{input.examname}}</option>
+                {% endfor %}
+            </select>
+            <br><br>
+            <button class="btn btn-primary" type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+
+
+    {%block hodresult%} {%endblock%}
+
+
+
+</div>
+
+{%endblock%}

@@ -1,0 +1,29 @@
+{%extends 'hod-view-result.html'%} {%block hodresult%}
+<div class="col-lg-12" style="overflow: scroll; height: 450px;">
+    <br>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Student Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Mark</th>
+                <th scope="col">status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rslt in result %}
+            <tr>
+                <th scope="row">{{ rslt.student_id }}</th>
+                <td>{{ rslt.studentname }}</td>
+                <td>{{ rslt.mark }}</td>
+                {% if rslt.mark >= 9 %}
+                <td>pass</td>
+                {% else %}
+                <td>Fail</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

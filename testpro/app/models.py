@@ -9,6 +9,7 @@ class Department(models.Model):
 class Batch(models.Model):
     name=models.CharField(max_length=30, null=False)
     department=models.CharField(max_length=30)
+    semester=models.IntegerField(default=1)
 
 class Users(models.Model):
     username=models.BigIntegerField(primary_key=True)
@@ -27,7 +28,7 @@ class Student(models.Model):
     dateofjoin=models.DateField(blank=True, null=True)
     batch=models.CharField(max_length=20)
     designation=models.CharField(max_length=30)
-    image=models.CharField(max_length=50)
+    image=models.CharField(max_length=100)
     semester=models.BigIntegerField()
 
 class Staff(models.Model):
@@ -48,9 +49,27 @@ class Admin(models.Model):
     password=models.CharField(max_length=30)
 # (input_formats=DATE_INPUT_FORMATS) 
 
+class Fess(models.Model):
+    std=models.ForeignKey(Users,on_delete=models.CASCADE)
+    department=models.CharField(max_length=30)
+    semester=models.BigIntegerField()
+    batch=models.CharField(max_length=20)
+    sem1fee=models.BigIntegerField(default=0)
+    sem1paid=models.BigIntegerField(default=0)
+    sem2fee=models.BigIntegerField(default=0)
+    sem2paid=models.BigIntegerField(default=0)
+    sem3fee=models.BigIntegerField(default=0)
+    sem3paid=models.BigIntegerField(default=0)
+    sem4fee=models.BigIntegerField(default=0)
+    sem4paid=models.BigIntegerField(default=0)
+    sem5fee=models.BigIntegerField(default=0)
+    sem5paid=models.BigIntegerField(default=0)
+    sem6fee=models.BigIntegerField(default=0)
+    sem6paid=models.BigIntegerField(default=0)
+
 class Exam(models.Model):
     examname=models.CharField(max_length=30)
-    question=models.CharField(max_length=250)
+    question=models.CharField(max_length=1000)
     opt1=models.CharField(max_length=30)
     opt2=models.CharField(max_length=30)
     opt3=models.CharField(max_length=30)
@@ -58,13 +77,24 @@ class Exam(models.Model):
     crctopt=models.CharField(max_length=30)
     filename=models.CharField(max_length=50,default='nil')
     subject=models.CharField(max_length=30, default='nil')
-    # semester=models.IntegerField()
+    semester=models.IntegerField()
     department=models.CharField(max_length=50, default="nil")    
     staffid=models.BigIntegerField(default=0)
+    status=models.CharField(max_length=50, default="disabled")
+
+class Result(models.Model):
+    student_id=models.BigIntegerField()
+    studentname=models.CharField(max_length=40,default='')
+    examname=models.CharField(max_length=30)
+    department=models.CharField(max_length=30,default='')
+    semester=models.IntegerField(default=0)
+    mark=models.IntegerField()
+    status=models.CharField(max_length=30, default="start")
 
 class Book(models.Model):
    bookname=models.CharField(max_length=30)
    department=models.CharField(max_length=30)
    semester=models.BigIntegerField()
+   bookfilename=models.CharField(max_length=250)
 
  

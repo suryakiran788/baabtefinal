@@ -4,129 +4,38 @@
     <div class="col-lg-12">
         <h3 class="head3">Exam Result</h3>
     </div>
-    <div class="col-lg-6">
-        <form class="" action="">
+    <div class="col-lg-12">
+        <form class="" method="POST" action="viewresult">
+            {% csrf_token %}
             <label for="deptname">Department name</label>
-            <select class="custom-select" id="deptname" required>
-                        <option selected  value="">CS</option>
-                        <option>Mec</option>
-                    </select>
+            <select class="custom-select" id="deptname" name="department" required>
+                {% for input in deptdata %}
+                    <option value="{{input.dept_name}}">{{input.dept_name}}</option>
+                {% endfor %}
+            </select>
             <br><br>
-            <label for="batch">Batch</label>
-            <select class="custom-select" id="batch" required>
-                        <option selected  value="">2019-20</option>
-                        <option>2018-19</option>
-                    </select>
+            <label for="sem">Semester</label>
+            <select class="custom-select" id="sem" name="semester" required>
+                {% for input in semdata %}
+                    <option value="{{input.semester}}">{{input.semester}}</option>
+                {% endfor %}
+            </select>
             <br><br>
             <label for="testname">Test name</label>
-            <select class="custom-select" id="testname" required>
-                        <option selected  value="">maths1</option>
-                        <option>maths2</option>
-                    </select>
+            <select class="custom-select" id="testname" name="examname" required>
+                {% for input in inputdata %}
+                    <option value="{{input.examname}}">{{input.examname}}</option>
+                {% endfor %}
+            </select>
             <br><br>
-            <label for="testname">Subject</label>
-            <select class="custom-select" id="testname" required>
-                        <option selected  value="">maths</option>
-                        <option>cs</option>
-                    </select>
-            <br> <br>
             <button class="btn btn-primary" type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
 
 
-    <div class="col-lg-6" style="overflow: scroll; height: 450px;">
-        <br>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Test Name</th>
-                    <th scope="col">Mark</th>
-                    <th scope="col">status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                </tr>
 
+    {%block result%} {%endblock%}
 
-
-
-
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
 
 
 </div>

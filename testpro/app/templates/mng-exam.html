@@ -13,13 +13,26 @@
                 <input type="text" class="form-control" id="examname" name="examname" required>
             </div>
             <div class="form-group">
-                <label>Select your Department</label><br>
+                <label>Select Department</label><br>
 
                 <select id="dept_name" name="dpt_name" class="form-control">
                     {% for dptdata in deptdata %}               
                         <option value="{{dptdata.dept_name}}">{{dptdata.dept_name}}</option>
                     {% endfor %}
                 </select><br>
+                <label>Select Semester</label><br>
+                <select id="sem" name="semester" class="form-control">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <!-- {% for semdata in semesterdata %}               
+                        <option value="{{semdata.semester}}">{{semdata.semester}}</option>
+                    {% endfor %} -->
+                </select><br>
+
                 <button type="submit" class="btn btn-primary">Add questions</button>
             </div>
         </form>
@@ -31,38 +44,35 @@
                 <tr>
                     <th scope="col">Exam Name</th>
                     <th scope="col">Department</th>
-                    <th scope="col">status</th>
+                    <th scope="col">Semester</th>
                     <th scope="col">Operations</th>
+                    <th scope="col">status</th>
                 </tr>
             </thead>
             <tbody>
+                {% for exmdata in examdata %}
                 <tr>
-                    <td>maths q1</td>
-                    <td>CS</td>
-                    <td>Deactivated</td>
+                    <td>{{exmdata.examname}}</td>
+                    <td>{{exmdata.department}}</td>
+                    <td>{{exmdata.Semester}}</td>
                     <td>
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-success">Activate</button>
-                            <button type="button" class="btn btn-warning">Stop</button>
-                            <button type="button" class="btn btn-danger">Delete</button>
+                            {% if exmdata.status == 'disabled' %}
+                            <a class="btn btn-primary btn-success" id="btn_dlt_usr" href="activate-exam/{{exmdata.examname}}" role="button">Activate</a> {% else %}
+                            <a class="btn btn-primary btn-warning" id="btn_dlt_usr" href="deactivate-exam/{{exmdata.examname}}" role="button">Stop</a> {% endif %}
+                            <a class="btn btn-primary btn-danger" id="btn_dlt_usr" onclick=" cnfmdelete()" href="examdelete/{{exmdata.examname}}" role="button">Delete</a>
                         </div>
                     </td>
+                    <td style="font-weight: bolder;">{{exmdata.status}}</td>
                 </tr>
-                <tr>
-                    <td>maths q1</td>
-                    <td>Mec</td>
-                    <td>Finished</td>
-                    <td>
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-success">Activate</button>
-                            <button type="button" class="btn btn-warning">Stop</button>
-                            <button type="button" class="btn btn-danger">Delete</button>
-                        </div>
-                    </td>
-                </tr>
-
+                {% endfor %}
             </tbody>
         </table>
     </div>
 </div>
+<script>
+    function cnfmdelete() {
+        confirm("Are you sure want to delete this Exam?")
+    }
+</script>
 {%endblock%}

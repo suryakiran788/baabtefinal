@@ -4,69 +4,48 @@
 <head>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        .container {
+            float: left;
+            position: relative;
+            width: 50%;
+            text-align: center;
+        }
+        
+        .nav {
+            display: inline;
+        }
+        
+        .image {
+            float: left;
+        }
+        
+        .image img {
+            width: 50%;
+        }
+        
+        .title {
+            width: 50%;
+            position: absolute;
+            bottom: -10px;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container">
-        <div class="row">
-
-            <div class="col-lg-6">
-                <label>View Books</label>
+    <div class="nav">
+        {% for bkdata in bookdata %}
+        <div class="container">
+            <div class="image">
+                <a href="/app/media/books/{{bkdata.bookfilename}}"><img src="/static/images/pdf-img.png" height="200px" width="200px"></a>
             </div>
-            <div class="col-lg-6">
-                <br>
-                <label>Upload Book</label><br>
-                <form>
-
-
-                    <div class="form-group">
-                        <label for="bkname">Book name</label>
-                        <input type="text" class="form-control" id="bkname" name="bookname">
-
-                    </div>
-
-
-
-
-                    <div class="form-group">
-                        <label for="dept">Department</label>
-                        <select class="form-control" id="dept">
-                            <option>cs</option>
-                            <option>mech</option>
-                          </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="batch">batch</label>
-                        <select class="form-control" id="batch">
-                            <option>2019-20</option>
-                            <option>2018-19</option>
-                          </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="bkupload">upload</label>
-                        <input type="file" class="form-control-file" id="bkupload">
-                    </div>
-                </form>
+            <div class="title">
+                <p> {{ bkdata.bookname }}</p>
             </div>
         </div>
+
+        {% endfor %}
     </div>
-    <!-- 
-    <form>
-        <div class="form-group">
-            <label for="dept">Department</label>
-            <select class="form-control" id="dept">
-                <option>cs</option>
-                <option>mech</option>
-              </select>
-        </div>
-        <div class="form-group">
-            <label for="batch">batch</label>
-            <select class="form-control" id="batch">
-                <option>cs19</option>
-                <option>cs18s</option>
-              </select>
-        </div>
-    </form> -->
 
 </body>
 

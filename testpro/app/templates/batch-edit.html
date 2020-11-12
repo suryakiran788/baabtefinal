@@ -4,17 +4,32 @@
     <p style="color: darkorange;">{{status}}</p>
     <div class="form-group">
         <label for="batchname">Batch name</label>
-        <input type="text" class="form-control" id="batchname" name="btchname" value="{{batchdata.name}}">
+        <input type="text" class="form-control" id="batchname" name="btchname" value="{{batchdata.name}}" readonly>
     </div>
     <div class="form-group">
         <label for="deptid">Department</label>
         <select id="dept_name" name="dpt_name" class="form-control">
-            {% for dptdata in deptdata %}
-            <option value="{{dptdata.dept_name}}" selected>{{dptdata.dept_name}}</option>
-            {% endfor %}
+                <option value="{{batchdata.department}}" selected>{{batchdata.department}}</option>
+        </select>
+
+        <label for="sem">Semester</label>
+        <!-- <input type="text" class="form-control" id="sem" name="semester" value="{{batchdata.semester}}"> -->
+        <select name="semester" id="sem" onclick="semhide()" class="form-control">
+            <option value="{{ batchdata.semester }}" id="crctsem">{{batchdata.semester}}</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
         </select>
     </div>
     <button type="submit" class="btn btn-primary">Update</button>
     <button type="button" class="btn btn-primary ">Cancel</button>
 </form>
+<script>
+    function semhide() {
+        document.getElementById("crctsem").style.display = 'none'
+    }
+</script>
 {%endblock%}

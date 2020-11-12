@@ -13,6 +13,7 @@
             <th scope="col">User Id</th>
             <th scope="col">Name</th>
             <th scope="col">Department</th>
+            <th scope="col">Semester</th>
             <th scope="col">Date Of Birth</th>
             <th scope="col">Blood Group</th>
             <th scope="col">Contact</th>
@@ -29,6 +30,7 @@
             <td>{{usrdata.usr_id}}</td>
             <td>{{usrdata.name}}</td>
             <td>{{usrdata.department}}</td>
+            <td>{{usrdata.semester}}</td>
             <td>{{usrdata.dateofbirth}}</td>
             <td>{{usrdata.blood_group}}</td>
             <td>{{usrdata.phone}}</td>
@@ -43,16 +45,25 @@
             <td>{{usrdata.usr_id}}</td>
             <td>{{usrdata.name}}</td>
             <td>{{usrdata.department}}</td>
+            <td>Nil</td>
             <td>{{usrdata.dateofbirth}}</td>
             <td>{{usrdata.blood_group}}</td>
             <td>{{usrdata.phone}}</td>
             <td>{{usrdata.dateofjoin}}</td>
             <td>Nil</td>
             <td>{{usrdata.designation}}</td>
-            <td><a class="btn btn-primary" id="btn_dlt_usr" href="staffdelete/{{usrdata.usr_id}}" role="button">Delete User</a></td>
+            <td><a class="btn btn-primary" id="btn_dlt_usr" href="staffdelete/{{usrdata.usr_id}}" onclick="cnfmdelete()" role="button">Delete User</a></td>
             <td><a class="btn btn-primary" id="btn_edt_usr" href="userupdate/{{usrdata.usr_id}}" role="button">Update User</a></td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+<script>
+    function cnfmdelete() {
+        var delusr = confirm("Are you sure want to delete this User?")
+        if (delusr == false) {
+            event.preventDefault()
+        }
+    }
+</script>
 {%endblock%}

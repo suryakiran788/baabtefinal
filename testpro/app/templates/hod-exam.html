@@ -1,0 +1,43 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .head3 {
+            text-align: center;
+        }
+        /*         
+        #exam-result {
+            height: 400px;
+        } */
+    </style>
+</head>
+
+<body>
+
+
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link " href="{% url 'hodhome' %}">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link " href="{% url 'viewresult' %}"> View Results</a>
+                <a class="nav-item nav-link" href="{% url 'hodmanageexam' %}">Manage Exams</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        {%block hodmanageexam%} {%endblock%}
+
+    </div>
+
+</body>
+
+</html>

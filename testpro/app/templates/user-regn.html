@@ -76,8 +76,6 @@
                     <option value="{{btchdata.name}}">{{btchdata.name}}</option>
                     {% endfor %}
                 </select><br>
-                <label for="semester" id="lbl_semester" style="display: none;">semester</label>
-                <input type="text" class="form-control" id="semester" name="sem" style="display: none;"><br>
 
 
 
@@ -114,24 +112,16 @@
         console.log(x);
         console.log(typeof(x))
         if (x == "student") {
-            console.log("hai")
-            document.getElementById("semester").style.display = "block";
-            document.getElementById("lbl_semester").style.display = "block";
             document.getElementById("tutorpermission").style.display = "none ";
             document.getElementById("batch").style.display = "block";
             document.getElementById("lbl_batch").style.display = "block";
         } else if (document.getElementById("staffselect").value == "hod") {
-            console.log("testing....")
-            document.getElementById("semester").style.display = "none";
-            document.getElementById("lbl_semester").style.display = "none";
             document.getElementById("tutorpermission").style.display = "none ";
             // document.getElementById("stafftype").style.display = "block ";
             // document.getElementById("lbl_stafftype").style.display = "block ";
             document.getElementById("batch").style.display = "none";
             document.getElementById("lbl_batch").style.display = "none";
         } else {
-            document.getElementById("semester").style.display = "none";
-            document.getElementById("lbl_semester").style.display = "none";
             // document.getElementById("stafftype").style.display = "block ";
             // document.getElementById("lbl_stafftype").style.display = "block ";
             document.getElementById("tutorpermission").style.display = "block ";

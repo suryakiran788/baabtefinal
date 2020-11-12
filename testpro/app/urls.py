@@ -14,11 +14,14 @@ urlpatterns = [
     path('adminfee', views.adminfee,name="adminfee"),
     path('profile',views.userprofile,name="profile"),
     path('staffhome',views.staffhome,name="staffhome"),
+    path('hodhome',views.hodhome,name="hodhome"),
     path('staffexam',views.staffexam,name="staffexam"),
+    path('hodexam',views.hodexam,name="hodexam"),
     path('staff-fee',views.feestaff,name="staff-fee"),
     path('staff-book',views.staffbook,name="staff-book"),
     path('viewresult',views.viewresult,name="viewresult"),
     path('Manageexam',views.manageexam,name="Manageexam"),
+    path('hodmanageexam',views.hodmanageexam,name='hodmanageexam'),
     path('staff-fee',views.stafffee,name="staff-fee"),
     path('student-exam',views.studexam,name="student-exam"),
     path('student-fee',views.studfee,name="student-fee"),
@@ -39,8 +42,16 @@ urlpatterns = [
     # path('checkpass',views.checkpass,name="checkpass"),
     path('changepicture',views.changeimg,name="changepicture"),
     path('createexam',views.createexam,name="createexam"),
-    path('startexam',views.startexam,name="startexam"),
+    path('startexam/<str:examname>',views.startexam,name="startexam"),
     path('bookmanage',views.mngbook,name="bookmanage"),
-    path('student-book',views.studbook,name="student-book")
+    path('student-book',views.studbook,name="student-book"),
+    path('finsihexam',views.finishexam,name="finsihexam"),
+    path('activate-exam/<str:examname>',views.examactive,name="activate-exam"),
+    path('deactivate-exam/<str:examname>',views.examdeactivate,name="deactivate-exam"),
+    path('hodcreateexam',views.hodcreateexam,name="hodcreateexam"),
+    path('examdelete/<str:examname>',views.examdelete,name="examdelete"),
+    path('adminviewfee',views.adminviewfee,name="adminviewfee"),
+    path('payfee',views.payfee,name="payfee")
+
 ]
 

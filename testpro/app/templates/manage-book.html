@@ -17,7 +17,7 @@
                 <tr>
                     <td>{{ bkdata.department }}</td>
                     <td>{{ bkdata.semester }}</td>
-                    <td>{{ bkdata.bookname }}</td>
+                    <td><a href="/app/media/books/{{bkdata.bookfilename}}">{{ bkdata.bookname }}</a></td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -45,9 +45,15 @@
             <div class="form-group">
                 <label for="">Semester</label><br>
                 <select name="semester" id="" class="form-control">
-                    {% for semesterdata in semdata %}
+                    <!-- {% for semesterdata in semdata %}
                         <option value="{{semesterdata.semester}}">{{semesterdata.semester}}</option>
-                    {%endfor%}
+                    {%endfor%} -->
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
                 </select>
             </div>
             <div class="form-group">
