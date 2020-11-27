@@ -4,7 +4,7 @@
     {% csrf_token %}
     <div class="row">
         <div class="row">
-            <div class="form-group col-lg-6">
+            <div class="form-group col-sm-6">
                 <label for="staffselect">Type of user</label>
                 <select id="staffselect" onchange="hideselect()" class="form-control" name="usrtype">
                 <option selected  value="staff">Tutor</option>
@@ -21,7 +21,7 @@
             </div> -->
             <br>
 
-            <div class="form-group col-lg-6" id="tutorpermission">
+            <div class="form-group col-sm-6" id="tutorpermission">
                 <input class="form-check-input" type="checkbox" name="sectioncharrge" value="yes" id="sectinchrg">
                 <label class="form-check-label" for="sectinchrg">
                   Section incharge
@@ -31,7 +31,7 @@
 
         <div class="row">
             <br>
-            <div class="form-group col-lg-6">
+            <div class="form-group col-sm-6">
                 <label for="username" name="lbl_name">Name<span>(required)</span></label>
                 <input type="text" name="usrname" class="form-control" id="username" minlength="3" required><br>
                 <label for="dept_name" name="dptname">Department Name</label>
@@ -58,10 +58,8 @@
                 <label for="username" name="lbl_name">Password<span>(required)</span></label>
                 <input type="text" name="password" class="form-control" id="paswd" minlength="3" required><br>
 
-
-
             </div>
-            <div class="form-group col-lg-6">
+            <div class="form-group col-sm-6">
                 <p style="color: red;">{{ error }}</p>
                 <label for="userid">ID</label>
                 <input type="text" class="form-control" id="userid" name="usrid"><br>
@@ -169,11 +167,11 @@
         }
 
 
-        // if (phone.value.match(phoneno)) {
-        //     return true;
-        // } else {
-        //     return false;
-        // }
+        if (phone.value.match(phoneno)) {
+            return true;
+        } else {
+            return false;
+        }
 
     }
 </script>

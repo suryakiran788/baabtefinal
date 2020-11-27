@@ -50,8 +50,8 @@ urlpatterns = [
     path('deactivate-exam/<str:examname>',views.examdeactivate,name="deactivate-exam"),
     path('hodcreateexam',views.hodcreateexam,name="hodcreateexam"),
     path('examdelete/<str:examname>',views.examdelete,name="examdelete"),
-    path('adminviewfee',views.adminviewfee,name="adminviewfee"),
-    path('payfee',views.payfee,name="payfee")
-
+    path('adminviewfee/<int:stdid>',views.adminviewfee,name="adminviewfee"),
+    path('payfee/<int:sem>',views.payfee,name="payfee"),
+    path('paidfee',views.paidfee,name="paidfee"),
 ]
 

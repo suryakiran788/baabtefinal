@@ -12,16 +12,26 @@
                 <th scope="col">Department</th>
                 <th scope="col">Batch</th>
                 <th scope="col">Semester</th>
-                <th scope="col">Total Fee</th>
                 <th scope="col">Paid</th>
                 <th scope="col">Balance</th>
 
             </tr>
         </thead>
         <tbody>
+            {% for feedata in feesdata %}
             <tr>
-
+                {% with paid=0 %} {% endwith %}
+                <td>{{ feedata.std_id }}</td>
+                <td><a href="adminviewfee/{{ feedata.std_id}}">{{ feedata.name }}</a></td>
+                <td>{{ feedata.department }}</td>
+                <td>{{ feedata.batch }}</td>
+                <td>{{ feedata.semester }}</td>
+                {% with paid=feedata.sem1paid %}
+                <td></td>
+                <td></td>
+                {% endwith %}
             </tr>
+            {% endfor %}
         </tbody>
     </table>
     {%endblock%}

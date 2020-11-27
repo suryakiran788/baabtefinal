@@ -49,23 +49,19 @@ class Admin(models.Model):
     password=models.CharField(max_length=30)
 # (input_formats=DATE_INPUT_FORMATS) 
 
-class Fess(models.Model):
+class Fees(models.Model):
     std=models.ForeignKey(Users,on_delete=models.CASCADE)
+    name=models.CharField(max_length=40)
     department=models.CharField(max_length=30)
     semester=models.BigIntegerField()
     batch=models.CharField(max_length=20)
-    sem1fee=models.BigIntegerField(default=0)
     sem1paid=models.BigIntegerField(default=0)
-    sem2fee=models.BigIntegerField(default=0)
     sem2paid=models.BigIntegerField(default=0)
-    sem3fee=models.BigIntegerField(default=0)
     sem3paid=models.BigIntegerField(default=0)
-    sem4fee=models.BigIntegerField(default=0)
     sem4paid=models.BigIntegerField(default=0)
-    sem5fee=models.BigIntegerField(default=0)
     sem5paid=models.BigIntegerField(default=0)
-    sem6fee=models.BigIntegerField(default=0)
     sem6paid=models.BigIntegerField(default=0)
+    total=models.BigIntegerField(default=0)
 
 class Exam(models.Model):
     examname=models.CharField(max_length=30)

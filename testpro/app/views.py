@@ -84,6 +84,9 @@ def usrregn(request):
 				userdata.save()
 				studdata=Student(name=name,usr_id=usrid,department=deptname,dateofbirth=db,blood_group=blood,phone=cntct,dateofjoin=dj,batch=batch,designation=typusr,image=image,semester=semester)
 				studdata.save()
+				feedata=Fees(name=name,department=deptname,semester=semester,std_id=usrid,batch=batch,semtotal=25000)
+				feedata.save()
+		
 			else:
 				if 'sectioncharrge' in request.POST:
 					sec=request.POST['sectioncharrge']
@@ -147,13 +150,61 @@ def adminexam(request):
 	return render(request,'exam.html',{'examdata':examdata,'deptdata':deptdata,'semdata':semdata})
 
 def adminfee(request):
-	return render(request,'fees-admin.html')
+	feedata=Fees.objects.all()
+	print(feedata)
+	return render(request,'fees-admin.html',{'feesdata':feedata})
 
-def payfee(request):
-	return render(request,'fees-pay.html')
+def payfee(request,stdid,sem):
+	feedata=Fees.objects.get(std_id=stdid)
+	if sem==1:
+		sumpaid=feedata.sem1paid
+	elif sem==2:
+		sumpaid=feedata.sem2paid
+	elif sem==3:
+		sumpaid=feedata.sem3paid
+	elif sem==4:
+		sumpaid=feedata.sem4paid
+	elif sem==5:
+		sumpaid=feedata.sem5paid
+	elif sem==6:
+		sumpaid=feedata.sem6paid
 
-def adminviewfee(request):
-	return render(request,'view-fees-admin.html')
+
+	# sumpaid=feedata.sem1paid+feedata.sem2paid+feedata.sem3paid+feedata.sem4paid+feedata.sem5paid+feedata.sem6paid
+	print(sumpaid)
+	return render(request,'fees-pay.html',{'feedata':feedata,'sem':sem,'totalpaid':sumpaid})
+def paidfee(request):
+	fee=request.POST['fees']
+	sem=int(request.POST['semester'])
+	if sem==1:
+		studfeedata=Fees.objects.filter(std_id=stdid).update(sem1paid=fee)
+		return redirect("adminviewfee")
+	elif sem==2:
+		studfeedata=Fees.objects.filter(std_id=stdid).update(sem2paid=fee)
+		return HttpResponse("paid ")
+	elif sem==3:
+		studfeedata=Fees.objects.filter(std_id=stdid).update(sem3paid=fee)
+		return HttpResponse("paid ")
+	elif sem==4:
+		studfeedata=Fees.objects.filter(std_id=stdid).update(sem4paid=fee)
+		return HttpResponse("paid ")
+	elif sem==5:
+		studfeedata=Fees.objects.filter(std_id=stdid).update(sem5paid=fee)
+		return HttpResponse("paid ")
+	elif sem==6:
+		studfeedata=Fees.objects.filter(std_id=stdid).update(sem6paid=fee)
+		return HttpResponse("paid ")
+	else:
+		# Fees.objects.get(std_id=stdid).update()
+		return HttpResponse("paid successfully")
+
+def adminviewfee(request,stdid):
+	# stdid=request.session['feeuserid']
+	studfeedata=Fees.objects.get(std_id=stdid)
+	totfee=25000
+	balance=totfee-studfeedata.sem1paid
+	print(balance)
+	return render(request,'view-fees-admin.html',{'studfeedata':studfeedata})
 
 def staffhome(request):
 	return render(request,'staff-home.html')
@@ -359,7 +410,10 @@ def studexam(request):
 	return render(request,"stud-exam.html",{'result':resultdata,'examdata':examdata})
 
 def studfee(request):
-	return render(request,"stud-fee.html")
+	stdid=request.session['loginid']
+	feedata=Fees.objects.get(std_id=stdid)
+	print(feedata)
+	return render(request,"stud-fee.html",{'userfee':feedata})
 
 # def studlogin(request):
 # 	return render(request,"stud-login.html")

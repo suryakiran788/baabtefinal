@@ -10,87 +10,112 @@
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
     <link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" rel="Stylesheet" type="text/css" />
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-    <style>
-        .head3 {
-            text-align: center;
-            font-weight: bold;
-        }
-        
-        .tablecontent {
-            text-align: center;
-        }
-    </style>
+
 </head>
 
 <body>
-    <ul class="nav nav-tabs">
-        <li class="nav-item">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">User</a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="{% url 'userregistration' %}">Registration</a>
-                    <br>
-                    <a class="dropdown-item" href="{% url 'usermanage' %}">Manage</a>
-                </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Department</a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="{% url 'departmentregistration' %}">Registration</a>
-                    <br>
-                    <a class="dropdown-item" href="{% url 'departmentmanage' %}">Manage</a>
-                </div>
-            </li>
-
-
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Batch</a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="{% url 'batchregisteration' %}">Registration</a>
-                    <br>
-                    <a class="dropdown-item" href="{% url 'batchmanage' %}">Manage</a>
-                </div>
-            </li>
-
-
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'adminexam' %}">Exam</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="{% url 'bookmanage' %}" tabindex="-1" aria-disabled="true">Syllabus Management</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link disabled" href="{% url 'adminfee' %}" tabindex="-1" aria-disabled="true">Fees</a>
-            </li>
-            <div class="pull-right">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <form action="admlogout">
-                            <button type="submit" class="btn btn-danger">LOG OUT</button>
-                        </form>
-                    </li>
-                </ul>
-            </div>
-
-
-
-    </ul>
-
     <div class="container">
-        <div class="col-lg-12">
-            <br> {%block content%} {%endblock%}
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <th>Name</th>
+                    <td>{{ feedata.name }}</td>
+                </tr>
+                <tr>
+                    <th>Department</th>
+                    <td>{{ feedata.department }}</td>
+                </tr>
+                <tr>
+                    <th>Batch</th>
+                    <td>{{ feedata.batch }}</td>
+                </tr>
+                <tr>
+                    <th>Semester</th>
+                    <td>{{ feedata.semester }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+
+        <!-- <form id="usrregfrm" name="userregform" onsubmit="return usrregvalid()" method="POST" action="userregistration">
+        {% csrf_token %}
+        <div class="container">
+            <label for="ammount">Enter Ammount to be paid</label>
+            <input type="text" class="form-control" id="ammount" name="fee" required>
         </div>
 
+
+    </form> -->
+        <!-- 
+        <form>
+
+            <div class="form-group row">
+                <label for="ammount" class="col-sm-3 col-form-label">Enter Ammount to be paid <br>(  In Rupees</i> )</label>
+
+                <div class="col-sm-9">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    <input type="text" class="form-control" id="ammount" name="fees" placeholder="Ammount">
+
+                </div>
+
+            </div>
+        </form> -->
+        <label for="">Ammount Paid :</label>
+        <label for="">{{ totalpaid }}</label><br>
+        <label for="">Balance :</label>
+        <label for="">5000</label>
+        <br><br>
+        <form action="/paidfee/{{ feedata.std_id }}" method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div class="input-group col-sm-12">
+                    <label for="sem">Semester</label><br>
+                    <select class="form-control" id="sem" name="semester">
+                    <option>{{ sem }}</option>
+                </select>
+                </div><br>
+                <div>
+                    <label for="ammount">Enter ammount to be paid</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-group col-sm-12">
+                    <span class="input-group-addon "><i class="fa fa-inr " aria-hidden="true "></i></span>
+                    <input id="ammount" name="fees" type="text" class="form-control" placeholder="Enter ammount to be paid " onkeypress="return isNumber(event)" required>
+                </div><br>
+                <div class="col-sm-10">
+
+                </div>
+                <div class="col-sm-2">
+                    <button class="btn btn-light " type="button">Cancel</button>&nbsp
+                    <button class="btn btn-primary" type="submit">Pay</button>
+
+                </div>
+
+
+            </div>
+        </form>
     </div>
+    <script>
+        function isNumber(evt) {
+            var phoneformat = /^\d{10}$/;
 
-
+            evt = (evt) ? evt : window.event;
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+        }
+    </script>
 </body>
+
 
 </html>
